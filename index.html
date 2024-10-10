@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        #container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #result.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        #result.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h2>Check if Password is Secure</h2>
+    <label for="token">JWT Token</label>
+    <input type="text" id="token" placeholder="Enter your JWT token">
+    
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter the password to check">
+    
+    <button onclick="checkPassword()">Check Password</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    async function checkPassword() {
+        const token = document.getElementById('token').value;
+        const password = document.getElementById('password').value;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '';
+        resultDiv.className = '';
+
+        if (!token || !password) {
+            resultDiv.innerHTML = 'Please enter both a token and a password';
+            resultDiv.className = 'error';
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/check-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                resultDiv.innerHTML = data.message;
+                resultDiv.className = 'success';
+            } else {
+                resultDiv.innerHTML = data.message;
+                resultDiv.className = 'error';
+            }
+        } catch (error) {
+            resultDiv.innerHTML = 'An error occurred. Please try again later.';
+            resultDiv.className = 'error';
+        }
+    }
+</script>
+
+</body>
+</html>
