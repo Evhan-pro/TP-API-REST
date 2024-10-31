@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const mysql = require('mysql2');
 const bcrypt = require('bcryptjs'); // Pour hacher les mots de passe
 const cookieParser = require('cookie-parser'); // Pour gérer les cookies
+const { verifyToken, checkRole } = require('./middlewares/authMiddleware');
+const db = require('./config/db');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -515,3 +517,33 @@ app.post('/admin/change-role', verifyToken, checkRole('Administrateur'), (req, r
   });
 });
   
+// Route pour traiter la connexion et générer un token JWT
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Vérifier si l'utilisateur existe dans la base de données
+  const query = 'SELECT * FROM users WHERE username = ?';
+  db.query(query, [username], async (err, results) => {
+    if (err) throw err;
+
+    if (results.length === 0) {
+      return res.redirect('/login?result=Invalid+credentials&alertClass=alert-danger');
+    }
+
+    // Vérifier si le mot de passe est correct
+    const user = results[0];
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (isMatch) {
+      const token = jwt.sign({ id: user.id, username: user.username }, secretKey, { expiresIn: '1h' });
+
+      // Ajouter le token au cookie HTTP Only
+      res.cookie('token', token, { httpOnly: true, maxAge: 3600000 }); // maxAge = 1 heure
+
+      // Redirection vers la page d'accueil après connexion
+      return res.redirect('/home');
+    } else {
+      return res.redirect('/login?result=Invalid+credentials&alertClass=alert-danger');
+    }
+  });
+});
