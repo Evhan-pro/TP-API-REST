@@ -9,8 +9,8 @@ router.get('/login', (req, res) => {
 });
 
 // Route pour afficher la page du menu des fonctionnalités (features)
-router.get('/features', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/features.html'));
+router.get('/', verifyToken, (req, res) => {
+  res.sendFile('features.html', { root: 'public' });
 });
 
 // Route pour afficher la page d'accueil

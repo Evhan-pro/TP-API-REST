@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../config/db');
-const secretKey = '2u6C7966M4AWz7a5rFVX3tFxYMnkqa';
 const fs = require('fs');
+const secretKey = '2u6C7966M4AWz7a5rFVX3tFxYMnkqa';
 const commonPasswords = fs.readFileSync('10k-most-common.txt', 'utf-8').split('\n');
 
-
-exports.loginHandler = async (req, res) => {
+// Handler pour la connexion
+const loginHandler = async (req, res) => {
   const { username, password } = req.body;
   const query = 'SELECT * FROM users WHERE username = ?';
   db.query(query, [username], async (err, results) => {
@@ -24,6 +24,7 @@ exports.loginHandler = async (req, res) => {
   });
 };
 
+// Handler pour l'enregistrement
 const registerHandler = async (req, res) => {
   const { username, password } = req.body;
 
@@ -60,3 +61,6 @@ const registerHandler = async (req, res) => {
     return res.status(500).json({ message: 'Error during registration' });
   }
 };
+
+// Exportez les handlers
+module.exports = { registerHandler, loginHandler };

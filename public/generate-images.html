@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Image Generator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .container { max-width: 800px; margin: 0 auto; padding-top: 20px; text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    img { width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Random Image Generator</h2>
+    <p>Select how many images you want to generate:</p>
+    <form id="imageForm">
+      <div class="form-group">
+        <label for="imageCount">Number of images:</label>
+        <input type="number" id="imageCount" class="form-control" placeholder="Enter number of images" min="1" value="1" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Generate Images</button>
+    </form>
+    <div id="imageGrid" class="grid mt-4"></div>
+    <a href="/features" class="btn btn-secondary mt-4">Back to Features Menu</a>
+  </div>
+  <script>
+    document.getElementById('imageForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const count = document.getElementById('imageCount').value;
+      fetch(`/api/generate-images?count=${count}`)
+        .then(response => response.json())
+        .then(data => {
+          const imageGrid = document.getElementById('imageGrid');
+          imageGrid.innerHTML = '';
+          data.images.forEach(imageUrl => {
+            const imgElement = document.createElement('img');
+            imgElement.src = imageUrl;
+            imageGrid.appendChild(imgElement);
+          });
+        })
+        .catch(error => console.error('Error fetching images:', error));
+    });
+  </script>
+</body>
+</html>
