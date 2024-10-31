@@ -1,27 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Features Menu</title>
+  <title>Menu fonctionnalités</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Thème sombre */
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* Navbar pleine largeur */
+    .navbar {
+      background-color: #444b5e;
+      border-bottom: 1px solid #444b5e;
+      position: fixed;
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: #e0e0e0 !important;
+    }
+
+    .navbar-logo {
+    width: 15%;
+    height: auto;
+    margin-left: 10%;
+    }
+
+    /* Parallax pleine largeur avec alternance de couleurs */
+    .parallax-section {
+      width: 100%;
+      padding: 80px 0;
+      color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: row;
+    }
+
+    /* Alterner la direction */
+    .parallax-odd .parallax-content {
+      order: 1;
+    }
+
+    .parallax-odd .parallax-image-container {
+      order: 0;
+    }
+
+    .parallax-even .parallax-content {
+      order: 0;
+    }
+
+    .parallax-even .parallax-image-container {
+      order: 1;
+    }
+
+    .parallax-odd {
+      background-color: #2e3b4e;
+    }
+
+    .parallax-even {
+      background-color: #444b5e;
+    }
+
+    /* Image plus grande */
+    .parallax-image-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 400px;
+      padding: 0 20px;
+    }
+
+    .parallax-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .parallax-content {
+      flex: 1;
+      max-width: 600px;
+      text-align: left;
+      padding: 20px;
+    }
+
+    /* Bouton attrayant */
+    .parallax-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #1e88e5;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+      margin-top: 15px;
+    }
+
+    .parallax-link:hover {
+      background-color: #64b5f6;
+      transform: translateY(-3px);
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    #generate-password{
+      padding-top: 10%;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="container">
-    <h2 class="text-center">Features Menu</h2>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Menu fonctionnalités</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="/features/generate-password">Générateur mot de passe</a></li>
-          <li class="nav-item"><a class="nav-link" href="/features/generate-images">Générateur d'image random</a></li>
-          <li class="nav-item"><a class="nav-link" href="/features/generate-identity">Générateur identité</a></li>
-        </ul>
-      </div>
-    </nav>
+  <!-- Navbar pleine largeur -->
+  <div class="navbar navbar-expand-lg">
+    <img src="/img/logo.png" alt="logo HackR" class="navbar-logo">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="#generate-password">Générateur mot de passe</a></li>
+        <li class="nav-item"><a class="nav-link" href="#generate-images">Générateur d'image random</a></li>
+        <li class="nav-item"><a class="nav-link" href="#generate-identity">Générateur identité</a></li>
+      </ul>
+    </div>
   </div>
+
+  <!-- Section Parallax 1 (Générateur mot de passe) -->
+  <div class="parallax-section parallax-odd" id="generate-password">
+    <div class="parallax-image-container">
+      <img src="/img/mdp.png" alt="Générateur de mot de passe" class="parallax-image">
+    </div>
+    <div class="parallax-content">
+      <h3>Générateur de mot de passe</h3>
+      <p>Créez des mots de passe sécurisés avec des critères personnalisés pour garantir la sécurité de vos informations en ligne.</p>
+      <a class="parallax-link" href="/features/generate-password">Accéder au générateur de mot de passe</a>
+    </div>
+  </div>
+
+  <!-- Section Parallax 2 (Générateur d'image random) -->
+  <div class="parallax-section parallax-even" id="generate-images">
+    <div class="parallax-content">
+      <h3>Générateur d'image random</h3>
+      <p>Explorez des images aléatoires pour l'inspiration ou pour créer une galerie unique, le tout en un seul clic.</p>
+      <a class="parallax-link" href="/features/generate-images">Accéder au générateur d'image random</a>
+    </div>
+    <div class="parallax-image-container">
+      <img src="/img/photo.png" alt="Générateur d'image random" class="parallax-image">
+    </div>
+  </div>
+
+  <!-- Section Parallax 3 (Générateur d'identité) -->
+  <div class="parallax-section parallax-odd" id="generate-identity">
+    <div class="parallax-image-container">
+      <img src="/img/identité.png" alt="Générateur d'identité" class="parallax-image">
+    </div>
+    <div class="parallax-content">
+      <h3>Générateur d'identité</h3>
+      <p>Générez une identité fictive complète pour des tests ou des démonstrations avec des informations réalistes.</p>
+      <a class="parallax-link" href="/features/generate-identity">Accéder au générateur d'identité</a>
+    </div>
+  </div>
+
+  <!-- Scripts Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
