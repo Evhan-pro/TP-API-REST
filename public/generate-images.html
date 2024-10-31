@@ -13,18 +13,19 @@
   </style>
 </head>
 <body>
+
   <div class="container">
-    <h2>Random Image Generator</h2>
-    <p>Select how many images you want to generate:</p>
+    <h2>Générateur d'images aléatoires</h2>
+    <p>Sélectionnez le nombre d'images:</p>
     <form id="imageForm">
       <div class="form-group">
-        <label for="imageCount">Number of images:</label>
-        <input type="number" id="imageCount" class="form-control" placeholder="Enter number of images" min="1" value="1" required>
+        <label for="imageCount">Nombre d'images:</label>
+        <input type="number" id="imageCount" class="form-control" placeholder="Entrer le nombre d'images" min="1" value="1" required>
       </div>
-      <button type="submit" class="btn btn-primary">Generate Images</button>
+      <button type="submit" class="btn btn-primary">Générer</button>
     </form>
     <div id="imageGrid" class="grid mt-4"></div>
-    <a href="/features" class="btn btn-secondary mt-4">Back to Features Menu</a>
+    <a href="/features" class="btn btn-secondary mt-4">Retourner au menu</a>
   </div>
   <script>
     document.getElementById('imageForm').addEventListener('submit', function(event) {
@@ -32,7 +33,7 @@
       const count = document.getElementById('imageCount').value;
       fetch(`/api/generate-images?count=${count}`)
         .then(response => response.json())
-        .then(data => {
+        .then(data => { 
           const imageGrid = document.getElementById('imageGrid');
           imageGrid.innerHTML = '';
           data.images.forEach(imageUrl => {

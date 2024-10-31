@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Générateur d'identité</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .back-arrow { position: absolute; top: 20px; left: 20px; cursor: pointer; }
+    .container { max-width: 800px; margin: 0 auto; padding-top: 50px; }
+    .card { margin-top: 20px; }
+    .card img { border-radius: 50%; width: 150px; height: 150px; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+    
+  <div class="container">
+    <h2 class="text-center">Générateur d'identité aléatoire</h2>
+    <p class="text-center">Cliquez sur le bouton pour générer une identité :</p>
+
+    <!-- Bouton pour générer une identité -->
+    <div class="text-center">
+      <button id="generateIdentity" class="btn btn-primary">Générer une identité</button>
+    </div>
+
+    <!-- Affichage des informations de l'identité sous forme de carte -->
+    <div id="identityCard" class="card mt-4" style="display: none;">
+      <div class="row no-gutters">
+        <div class="col-md-4 text-center">
+          <img id="identityPhoto" src="" alt="User Photo" class="img-fluid rounded-circle mt-3">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title" id="identityName"></h5>
+            <p class="card-text"><strong>Âge :</strong> <span id="identityAge"></span></p>
+            <p class="card-text"><strong>Sexe :</strong> <span id="identityGender"></span></p>
+            <p class="card-text"><strong>Email :</strong> <span id="identityEmail"></span></p>
+            <p class="card-text"><strong>Téléphone :</strong> <span id="identityPhone"></span></p>
+            <p class="card-text"><strong>Adresse :</strong> <span id="identityAddress"></span></p>
+            <p class="card-text"><strong>Poids :</strong> <span id="identityWeight"></span></p>
+            <p class="card-text"><strong>Taille :</strong> <span id="identityHeight"></span></p>
+            <p class="card-text"><strong>Nationalité :</strong> <span id="identityNationality"></span></p>
+            <p class="card-text"><strong>Passion :</strong> <span id="identityPassion"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS pour gérer la génération de l'identité -->
+  <script>
+    document.getElementById('generateIdentity').addEventListener('click', function () {
+      fetch('/api/generate-identity')
+        .then(response => response.json())
+        .then(data => {
+          // Mettre à jour les autres informations reçues
+          document.getElementById('identityName').textContent = data.name;
+          document.getElementById('identityAge').textContent = data.age;
+          document.getElementById('identityGender').textContent = data.gender;
+          document.getElementById('identityEmail').textContent = data.email;
+          document.getElementById('identityPhone').textContent = data.phone;
+          document.getElementById('identityAddress').textContent = data.address;
+          document.getElementById('identityWeight').textContent = data.weight;
+          document.getElementById('identityHeight').textContent = data.height;
+          document.getElementById('identityNationality').textContent = data.nationality;
+          document.getElementById('identityPassion').textContent = data.passion;
+  
+          // Configurer l'image de profil en fonction de l'âge et du sexe
+          const ageRange = data.age < 20 ? 'teen' : data.age < 30 ? '20s' : data.age < 40 ? '30s' : data.age < 50 ? '40s' : data.age < 60 ? '50s' : 'senior';
+          const gender = data.gender === 'Homme' ? 'man' : 'woman';
+  
+          // URL avec mots-clés basés sur l'âge et le sexe
+          const photoUrl = `https://source.unsplash.com/featured/150x150/?${gender},${ageRange}`;
+          document.getElementById('identityPhoto').src = photoUrl;
+  
+          // Afficher la carte d'identité
+          document.getElementById('identityCard').style.display = 'block';
+        })
+        .catch(error => {
+          console.error("Erreur lors de la génération de l'identité:", error);
+        });
+    });
+  </script>  
+</body>
+</html>
