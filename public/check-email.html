@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vérification d'Email</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { background-color: #444b5e; color: #e0e0e0; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+    .container { max-width: 400px; margin: 0 auto; }
+    .result { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Vérification d'Adresse Email</h2>
+    <p>Entrez une adresse email pour vérifier son existence.</p>
+    <input type="email" id="emailInput" class="form-control" placeholder="exemple@domaine.com" required>
+    <button id="checkEmailBtn" class="btn btn-primary mt-3">Vérifier</button>
+
+    <div id="resultMessage" class="result mt-4"></div>
+  </div>
+
+  <script>
+    document.getElementById('checkEmailBtn').addEventListener('click', () => {
+      const email = document.getElementById('emailInput').value;
+      fetch(`/api/check-email?email=${email}`)
+        .then(response => response.json())
+        .then(data => {
+          const messageElement = document.getElementById('resultMessage');
+          messageElement.textContent = data.message;
+          messageElement.style.color = data.exists ? 'green' : 'red';
+        })
+        .catch(error => {
+          console.error("Erreur lors de la vérification de l'email:", error);
+          document.getElementById('resultMessage').textContent = "Erreur lors de la vérification. Veuillez réessayer.";
+        });
+    });
+  </script>
+</body>
+</html>

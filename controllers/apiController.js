@@ -37,3 +37,21 @@ exports.generateIdentity = async (req, res) => {
     res.status(500).json({ message: 'Error generating identity' });
   }
 };
+
+// Vérification de l'existence d'une adresse email
+exports.checkEmail = async (req, res) => {
+  const { email } = req.query;
+  
+  try {
+    const response = await axios.get(`https://api.hunter.io/v2/email-verifier?email=${email}&api_key=7a7d02ffb6adb1e8b58b22223b068b8b82ccb44e`);
+    
+    if (response.data.data.status === 'valid') {
+      res.json({ exists: true, message: 'Email is valid and exists.' });
+    } else {
+      res.json({ exists: false, message: 'Email is not valid or does not exist.' });
+    }
+  } catch (error) {
+    console.error("Error checking email:", error);
+    res.status(500).json({ exists: false, message: 'An error occurred while checking the email.' });
+  }
+};

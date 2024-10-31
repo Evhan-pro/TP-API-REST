@@ -38,4 +38,9 @@ router.get('/generate-identity', verifyToken, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/generate-identity.html'));
 });
 
+// Route pour la page de vérification d'email
+router.get('/check-email', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/check-email.html'));
+});
+
 module.exports = router;

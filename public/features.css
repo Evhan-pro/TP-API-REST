@@ -1,0 +1,113 @@
+    /* Thème sombre */
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+  
+      /* Navbar pleine largeur */
+      .navbar {
+        background-color: #444b5e;
+        border-bottom: 1px solid #444b5e;
+        position: fixed;
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+      }
+  
+      .navbar-brand,
+      .nav-link {
+        color: #e0e0e0 !important;
+      }
+  
+      .navbar-logo {
+      width: 15%;
+      height: auto;
+      margin-left: 10%;
+      }
+  
+      /* Parallax pleine largeur avec alternance de couleurs */
+      .parallax-section {
+        width: 100%;
+        padding: 80px 0;
+        color: #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: row;
+      }
+  
+      /* Alterner la direction */
+      .parallax-odd .parallax-content {
+        order: 1;
+      }
+  
+      .parallax-odd .parallax-image-container {
+        order: 0;
+      }
+  
+      .parallax-even .parallax-content {
+        order: 0;
+      }
+  
+      .parallax-even .parallax-image-container {
+        order: 1;
+      }
+  
+      .parallax-odd {
+        background-color: #2e3b4e;
+      }
+  
+      .parallax-even {
+        background-color: #444b5e;
+      }
+  
+      /* Image plus grande */
+      .parallax-image-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 400px;
+        padding: 0 20px;
+      }
+  
+      .parallax-image {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+  
+      .parallax-content {
+        flex: 1;
+        max-width: 600px;
+        text-align: left;
+        padding: 20px;
+      }
+  
+      /* Bouton attrayant */
+      .parallax-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #1e88e5;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+        margin-top: 15px;
+      }
+  
+      .parallax-link:hover {
+        background-color: #64b5f6;
+        transform: translateY(-3px);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+      }
+  
+      #generate-password{
+        padding-top: 10%;
+      }
